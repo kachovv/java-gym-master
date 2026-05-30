@@ -36,6 +36,7 @@ public class Timetable {
         }
         return dayTimeTable.get(timeOfDay);
     }
+
     //Метод для считывания тренировок
     public List<CounterOfTrainings> getCountByCoaches() {
         Map<Coach, Integer> countMap = new HashMap();

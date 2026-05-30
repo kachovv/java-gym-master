@@ -91,6 +91,7 @@ public class TimetableTest {
         TrainingSession sessionNotFound = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(14, 0));
         assertNull(sessionNotFound);
     }
+
     //Тест на добавление нескольких тренировок в один день с проверкой на порядок
     @Test
     void testGetTrainingSessionsForDayWithMultipleSessionsOrder() {
@@ -118,12 +119,14 @@ public class TimetableTest {
         assertSame(session1, wednesdaySessions.get(new TimeOfDay(14, 0)));
         assertSame(session3, wednesdaySessions.get(new TimeOfDay(17, 30)));
     }
+
     //Тест на вывод отсутствующей тренировки
     @Test
     void testGetTrainingSessionForDayAndTimeForNonExistentDay() {
         TrainingSession result = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.SUNDAY, new TimeOfDay(10, 0));
         assertNull(result);
     }
+
     //Тест на перезапись тренировки
     @Test
     void testAddNewTrainingSessionReplacesExisting() {
