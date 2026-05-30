@@ -1,15 +1,15 @@
 package ru.yandex.practicum.gym;
 
-import org.testng.annotations.Test;
-import static org.testng.Assert.*;
-import org.testng.annotations.BeforeMethod;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 
 public class TimetableTest {
     private Timetable timetable;
 
-    @BeforeMethod
+    @BeforeEach
     void setUp() {
         timetable = new Timetable();
     }
@@ -26,7 +26,7 @@ public class TimetableTest {
         //Проверить, что за понедельник вернулось одно занятие
         SortedMap<TimeOfDay, TrainingSession> mondaySessions = timetable.getTrainingSessionsForDay((DayOfWeek.MONDAY));
         assertNotNull(mondaySessions);
-        assertEquals(mondaySessions.size(), 1);
+        assertEquals(1, mondaySessions.size());
         assertTrue(mondaySessions.containsKey(new TimeOfDay(13, 0)));
         //Проверить, что за вторник не вернулось занятий
         SortedMap<TimeOfDay, TrainingSession> tuesdaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
@@ -58,15 +58,15 @@ public class TimetableTest {
 
         // Проверить, что за понедельник вернулось одно занятие
         SortedMap<TimeOfDay, TrainingSession> mondaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
-        assertEquals(mondaySessions.size(), 1);
+        assertEquals(1, mondaySessions.size());
         assertTrue(mondaySessions.containsKey(new TimeOfDay(13, 0)));
 
         // Проверить, что за четверг вернулось два занятия в правильном порядке: сначала в 13:00, потом в 20:00
         SortedMap<TimeOfDay, TrainingSession> thursdaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY);
-        assertEquals(thursdaySessions.size(), 2);
+        assertEquals(2, thursdaySessions.size());
         List<TimeOfDay> times = new ArrayList<>(thursdaySessions.keySet());
-        assertEquals(times.get(0), new TimeOfDay(13, 0));
-        assertEquals(times.get(1), new TimeOfDay(20, 0));
+        assertEquals(new TimeOfDay(13, 0), times.get(0));
+        assertEquals(new TimeOfDay(20, 0), times.get(1));
 
         // Проверить, что за вторник не вернулось занятий
         SortedMap<TimeOfDay, TrainingSession> tuesdaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
@@ -107,7 +107,7 @@ public class TimetableTest {
         timetable.addNewTrainingSession(session3);
 
         SortedMap<TimeOfDay, TrainingSession> wednesdaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.WEDNESDAY);
-        assertEquals(wednesdaySessions.size(), 3);
+        assertEquals(3, wednesdaySessions.size());
 
         List<TimeOfDay> expectedTimes = Arrays.asList(
                 new TimeOfDay(9, 0),
@@ -143,7 +143,7 @@ public class TimetableTest {
         timetable.addNewTrainingSession(trainingSession2);
 
         SortedMap<TimeOfDay, TrainingSession> fridaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.FRIDAY);
-        assertEquals(fridaySessions.size(), 1);
+        assertEquals(1, fridaySessions.size());
         assertSame(trainingSession2, fridaySessions.get(new TimeOfDay(10, 0)));
 
         TrainingSession sessionFound = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.FRIDAY, new TimeOfDay(10, 0));
@@ -177,13 +177,13 @@ public class TimetableTest {
 
         List<CounterOfTrainings> result = timetable.getCountByCoaches();
 
-        assertEquals(result.size(), 3);
+        assertEquals(3, result.size());
         assertEquals(result.get(0).getCoach(), coachA);
-        assertEquals(result.get(0).getCount(), 3);
+        assertEquals(3, result.get(0).getCount());
         assertEquals(result.get(1).getCoach(), coachC);
-        assertEquals(result.get(1).getCount(), 2);
+        assertEquals(2, result.get(1).getCount());
         assertEquals(result.get(2).getCoach(), coachB);
-        assertEquals(result.get(2).getCount(), 1);
+        assertEquals(1, result.get(2).getCount());
     }
 
     //Тест на добавление одного тренера с несколькими тренировками
@@ -198,8 +198,8 @@ public class TimetableTest {
 
         List<CounterOfTrainings> result = timetable.getCountByCoaches();
 
-        assertEquals(result.size(), 1);
+        assertEquals(1, result.size());
         assertEquals(result.getFirst().getCoach(), coach);
-        assertEquals(result.getFirst().getCount(), 3);
+        assertEquals(3, result.getFirst().getCount());
     }
 }
